@@ -65,6 +65,9 @@ class Command(DocoptCommand):
                 raise errors.FigFileNotFound(os.path.basename(e.filename))
             raise errors.UserError(six.text_type(e))
 
+        if 'name' in config:
+            self.explicit_project_name = config.pop('name')
+
         try:
             return Project.from_config(self.project_name, config, self.client)
         except ConfigError as e:
